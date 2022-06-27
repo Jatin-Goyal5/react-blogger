@@ -15,14 +15,26 @@ function Search({location}){
     const [time , setTime] = useState('');
     const addSearchHistory =()=>{
         let history = window.sessionStorage.getItem('history');
-        console.log(history)
+        if(history){
+            
+           history= window.sessionStorage.getItem('history');
+           if(history.includes(tag)){
+            return;
+           }
+           history += ","+tag;
+           window.sessionStorage.setItem('history',history);
+           console.log(history)
+        }else{
+            window.sessionStorage.setItem('history',tag);
+
+        }
     }
     
     const handleKeyPress = async (e) => {
         if (e.key === 'Enter') {
             setLoading(true);
             let before = (performance.now());
-            console.log(tag);
+            addSearchHistory();
             let blogsResponse = await crawlBlogs(tag);
             blogsResponse=  blogsResponse.length == 0 ?[] : blogsResponse.data;
             if(blogsResponse==undefined ||  blogsResponse.length == 0){
@@ -42,6 +54,7 @@ function Search({location}){
     }
     const onSubmit = async () => {
         setLoading(true);
+        addSearchHistory();
         let before = (performance.now());
         console.log(tag);
         let blogsResponse = await crawlBlogs(tag);
@@ -94,7 +107,7 @@ function Search({location}){
        <button className = "input_button" onClick={onSubmit}>
         <ImSearch></ImSearch>
        </button>
-       
+       {window.sessionStorage.getItem('history')?<h2>{window.sessionStorage.getItem('history')}</h2>:<></> }
        {loading == true?<h1>Loading ...</h1>:
            blogs.length === 0 ?
            <div>
@@ -103,7 +116,6 @@ function Search({location}){
                 <div className="movies">
                     <h3>suggestion Tag</h3>
                     {suggestionTag && suggestionTag.length > 0 && suggestionTag.map((data)=>{
-                        console.log(data);
                         return <h3>{data}</h3>
                     })}
                 </div>
