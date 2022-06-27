@@ -8,7 +8,7 @@ function Post(){
         let data = localStorage.getItem('post');
         data = JSON.parse(data);
         setPost(data);
-    },[]);
+    });
    
     return (<>
     {postData === null || postData === {} ?
@@ -35,7 +35,7 @@ function Post(){
                 postData.relatedtags=== [] || postData.relatedtags=== undefined ?
                 <div>No Tags</div> :
                 postData.relatedtags.map((element) => {
-                    return <Link to={`/tag/${element}`} target= "_blank">
+                    return <Link to={{pathname: `/tag/${element}`, state:{element} }} target= "_blank" >
                         <h5>    *{"       "+element+"       "}</h5>
                         <br></br>
                         </Link>

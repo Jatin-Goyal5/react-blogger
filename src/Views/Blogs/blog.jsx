@@ -5,7 +5,7 @@ function Blog({blog}){
     const postTitle = blog.title.split(' ').join('-');
     const handleOnClick = (e) => {
         blog.post= JSON.parse(blog.post);
-        blog.relatedtags = JSON.parse(blog.relatedtags)
+        blog.relatedtags = JSON.parse(blog.relatedtags);
         localStorage.setItem('post', JSON.stringify(blog));
     }
     return (

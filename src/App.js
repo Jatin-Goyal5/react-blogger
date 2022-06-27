@@ -11,7 +11,7 @@ function App() {
         <Route path="/" exact>
          <Search></Search>
         </Route>
-        <Route path="/post/:post" exact>
+        <Route path="/post/:post"  exact>
             <Post></Post>
         </Route>
         <Route path="/tag/:tag">

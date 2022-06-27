@@ -1,21 +1,22 @@
 import React, { useState,useEffect } from "react";
 import { ImNext, ImSearch } from "react-icons/im";
 import {GrLinkNext} from 'react-icons/gr'
-
+import { useLocation } from 'react-router-dom'
 import crawlBlogs from '../../Service/blogs';
 import Blog from "../Blogs/blog";
 import './search.css';
 import getSuggestion from "../../Service/suggestion";
-function Search(){
+function Search({location}){
     const [tag , setTag]  = useState('');
     const [blogs , setBlogs] = useState([]);
     const [loading, setLoading] = useState();
     const [page, setPage] = useState(0);
     const [suggestionTag, setSuggestion] = useState([]);
     const [time , setTime] = useState('');
-  
-    
-    
+    const addSearchHistory =()=>{
+        let history = window.sessionStorage.getItem('history');
+        console.log(history)
+    }
     
     const handleKeyPress = async (e) => {
         if (e.key === 'Enter') {
@@ -26,11 +27,7 @@ function Search(){
             blogsResponse=  blogsResponse.length == 0 ?[] : blogsResponse.data;
             if(blogsResponse==undefined ||  blogsResponse.length == 0){
                 let suggestion = await getSuggestion(tag);
-                setSuggestion(suggestion.data);
-                if(window.sessionStorage.getItem('searchHistory')){
-                    console.log(window.sessionStorage.getItem('searchHistory'));
-                }
-                
+                setSuggestion(suggestion.data);                
             }else{
                 setBlogs(blogsResponse);
             }
@@ -38,6 +35,7 @@ function Search(){
             setTime(after-before);
             setPage(1);
             setLoading(false);
+            setBlogs(blogsResponse);
 
             
         }
@@ -51,13 +49,9 @@ function Search(){
         if(blogsResponse==undefined ||  blogsResponse.length == 0){
             let suggestion = await getSuggestion(tag);
             setSuggestion(suggestion.data);
-            if(window.sessionStorage.getItem('searchHistory')){
-                console.log(window.sessionStorage.getItem('searchHistory'));
-            }
             
-        }else{
-            setBlogs(blogsResponse);
         }
+        setBlogs(blogsResponse);
         let after = performance.now();
         setTime(after-before);
         setPage(1);

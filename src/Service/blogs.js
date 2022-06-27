@@ -4,7 +4,7 @@ const crawlBlogs = async (tag)=>{
         console.log("in blog",tag);
         const urlResponse = await axios({
             method: 'get',
-            url:`http://localhost:5000/blog?tag=${tag}`,
+            url:`https://medium-blogger-crawler.herokuapp.com/blog?tag=${tag}`,
             withCredentials: false,
             
         })

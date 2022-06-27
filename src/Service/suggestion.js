@@ -3,7 +3,7 @@ const getSuggestion = async (tag)=>{
     try{
         const urlResponse = await axios({
             method: 'get',
-            url:`http://localhost:5000/blog/suggestedTags?tag=${tag}`,
+            url:`https://medium-blogger-crawler.herokuapp.com/blog/suggestedTags?tag=${tag}`,
             withCredentials: false,
             
         })
