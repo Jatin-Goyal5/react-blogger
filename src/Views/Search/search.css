@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+}
+.container {
+    padding: 5% 20%;
+    align-items: center;
+    margin: auto;
+    height:100%; 
+    width:100%;
+}
+input{
+    width: 40vw;
+    height: 2.5rem;
+    outline: none;
+    padding: 5px;
+    border-radius: 10px 0 0 10px;
+}
+
+
+.input_button{
+    height: 2.5rem;
+    width: 3rem;
+    padding: 0px;
+    border-radius: 0px 10px 10px 0px;
+    background-color: lightblue;
+    outline: none;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.slidder{
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+    padding: 5px;
+    margin-top: 10px;
+    width: 70vw;
+    height: 3rem;
+}
+
+.suggestion_tag{
+    cursor: pointer;
+    display: flex;
+    background-color: #f2f2f2;
+    height: 30px;
+    justify-content: center;
+    padding: 5px;
+    font-weight: 500;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+.movies{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 60px;
+    padding: 20px;
+}
+
+.next_div{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    height: 3rem;    
+   
+}
+
+.next_button{
+    cursor: pointer;
+    height: 80%;
+    width: 10%;
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 9px 0px 0px 9px;
+}
+.next_button:hover ,.next_button:active{
+    cursor: pointer;
+    height: 82%;
+    width: 11%;
+    background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 9px 0px 0px 9px;
+    outline: blue;
+    transition-delay: 5;
+    
+}

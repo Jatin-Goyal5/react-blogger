@@ -1,0 +1,23 @@
+.blog{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
+    margin: 5rem
+}
+
+.relatedTags{
+    display: flex;
+    flex-direction: row;
+    text-align: initial;
+    margin: 5rem
+
+}
