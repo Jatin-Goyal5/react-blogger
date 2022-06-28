@@ -6,13 +6,31 @@ import crawlBlogs from '../../Service/blogs';
 import Blog from "../Blogs/blog";
 import './search.css';
 import getSuggestion from "../../Service/suggestion";
-function Search({location}){
+function Search(){
     const [tag , setTag]  = useState('');
     const [blogs , setBlogs] = useState([]);
     const [loading, setLoading] = useState();
     const [page, setPage] = useState(0);
     const [suggestionTag, setSuggestion] = useState([]);
     const [time , setTime] = useState('');
+
+    useEffect(()=>{
+        if(localStorage.getItem('tag')){
+            let ctag =localStorage.getItem('tag');
+            setTag(localStorage.getItem('tag'));
+            console.log(localStorage.getItem('tag'));
+            async function fetchTag(){
+                setLoading(true);
+                let blogsResponse =  await crawlBlogs(ctag);
+                    blogsResponse=  blogsResponse.length == 0 ?[] : blogsResponse.data;
+                    setBlogs(blogsResponse);
+                setLoading(false);
+                
+            }
+            fetchTag();
+            localStorage.removeItem('tag');
+        }
+    },[])
     const addSearchHistory =()=>{
         let history = window.sessionStorage.getItem('history');
         if(history){
@@ -95,7 +113,8 @@ function Search({location}){
 
     return (
     <div className="container">
-        <h1>{time}</h1>
+        {time ? <h1>{time} miliseconds</h1>:<></>}
+        {window.sessionStorage.getItem('history')?<h3>search History {window.sessionStorage.getItem('history').split(',').join(' | ')}</h3>:<></> }
         <input
           id="input_tag"
           value={tag} 
@@ -107,17 +126,15 @@ function Search({location}){
        <button className = "input_button" onClick={onSubmit}>
         <ImSearch></ImSearch>
        </button>
-       {window.sessionStorage.getItem('history')?<h2>{window.sessionStorage.getItem('history')}</h2>:<></> }
        {loading == true?<h1>Loading ...</h1>:
            blogs.length === 0 ?
            <div>
             <h1>No Data Found</h1>
             <br></br>
                 <div className="movies">
-                    <h3>suggestion Tag</h3>
-                    {suggestionTag && suggestionTag.length > 0 && suggestionTag.map((data)=>{
-                        return <h3>{data}</h3>
-                    })}
+                    {suggestionTag && suggestionTag.length > 0? <h3>suggestionTag {suggestionTag.join("  |   ")}</h3>
+                    :<></>}
+                    
                 </div>
             </div>
            :<div className="movies">
@@ -131,7 +148,7 @@ function Search({location}){
 
        <div className="next_div">
 
-       {blogs.length ?<button className="next_button" onClick={onNext}>Next<GrLinkNext></GrLinkNext></button>:<></>}
+       {blogs && blogs.length ?<button className="next_button" onClick={onNext}>Next<GrLinkNext></GrLinkNext></button>:<></>}
        </div>
     </div>
 

@@ -9,7 +9,9 @@ function Post(){
         data = JSON.parse(data);
         setPost(data);
     });
-   
+    function addTag(data){
+        localStorage.setItem('tag',data);
+    }
     return (<>
     {postData === null || postData === {} ?
                 <div>Loading ....</div> :
@@ -35,7 +37,7 @@ function Post(){
                 postData.relatedtags=== [] || postData.relatedtags=== undefined ?
                 <div>No Tags</div> :
                 postData.relatedtags.map((element) => {
-                    return <Link to={{pathname: `/tag/${element}`, state:{element} }} target= "_blank" >
+                    return <Link to={{pathname: `/tag/${element}`, state:{element} }} target= "_blank" onClick={addTag(element)}>
                         <h5>    *{"       "+element+"       "}</h5>
                         <br></br>
                         </Link>
