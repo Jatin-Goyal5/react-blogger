@@ -13,12 +13,11 @@ function Search(){
     const [page, setPage] = useState(0);
     const [suggestionTag, setSuggestion] = useState([]);
     const [time , setTime] = useState('');
-
+    const [htag , sethTag] = useState('');
     useEffect(()=>{
-        if(localStorage.getItem('tag')){
-            let ctag =localStorage.getItem('tag');
-            setTag(localStorage.getItem('tag'));
-            console.log(localStorage.getItem('tag'));
+        if(window.location.href.includes('tag')){
+            let ctag = (window.location.href.split('/').pop());
+            setTag(ctag);
             async function fetchTag(){
                 setLoading(true);
                 let blogsResponse =  await crawlBlogs(ctag);
@@ -28,7 +27,8 @@ function Search(){
                 
             }
             fetchTag();
-            localStorage.removeItem('tag');
+        }else{
+            return;
         }
     },[])
     const addSearchHistory =()=>{
